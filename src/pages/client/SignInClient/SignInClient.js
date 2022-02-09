@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import {useNavigate} from "react-router-dom";
+// import useAuth from '../../hooks/useAuth';
 import api from "../../../services/api";
 import styled from "styled-components";
+import { Link } from 'react-router-dom';
 
 export default function SignInClient() {
     const navigate = useNavigate();
@@ -9,6 +11,7 @@ export default function SignInClient() {
         email: '',
         password: '',
     });
+    // const { login } = useAuth();
 
     function handleChange(e) {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,8 +22,7 @@ export default function SignInClient() {
 
         const promise = api.loginClient({ ...formData });
         promise.then((response)=>{
-            // const token= response.data;
-            // localStorage.setItem("token", token);
+            // login(response.data);
             navigate("/");
         });
         promise.catch((error)=>{
@@ -49,6 +51,7 @@ export default function SignInClient() {
         required/>
         <Button type="submit">Entrar</Button>
         </Form>
+        <StyledLink to="/">Cadastre-se</StyledLink>
     </Container>);
 }
 
@@ -130,4 +133,15 @@ const Button = styled.button`
     color: #FFFFFF;
     background: #023059;
     border-radius: 5px;
+`;
+
+const StyledLink = styled(Link)`
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 18px;
 `;

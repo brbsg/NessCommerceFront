@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import api from "../../../services/api";
 import styled from "styled-components";
+import { Link } from 'react-router-dom';
 
 export default function SignUpClient(){
     const navigate = useNavigate();
@@ -54,6 +55,7 @@ export default function SignUpClient(){
                 />
             <Button type="submit">Cadastrar</Button>
         </Form>
+        <StyledLink to="/sign-in-client">Faça login</StyledLink>
     </Container>
     );
 }
@@ -136,4 +138,15 @@ const Button = styled.button`
     color: #FFFFFF;
     background: #023059;
     border-radius: 5px;
+`;
+
+const StyledLink = styled(Link)`
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 18px;
 `;
