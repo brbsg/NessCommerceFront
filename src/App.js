@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import GlobalStyles from "./globalStyle/GlobalStyles";
 import Main from "./pages/client/Main/Main";
+import SignInClient from "./pages/client/SignInClient/SignInClient";
+import SignUpClient from "./pages/client/SignUpClient/SignUpClient";
 
 export default function App() {
   return (
@@ -12,6 +14,8 @@ export default function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Main />} />
+        <Route path="/sign-in-client" element={<SignInClient />}/>
+        <Route path="/sign-up-client" element={<SignUpClient />} />
       </Routes>
     </BrowserRouter>
   );
