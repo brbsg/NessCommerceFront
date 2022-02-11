@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = process.env.REACT_BASE_URL;
+const BASE_URL = process.env.BASE_URL;
 
 function createConfig(token) {
   return {
@@ -22,7 +22,7 @@ async function loginClient(body) {
 }
 
 async function getAllProducts() {
-  const promise = axios.get(`${BASE_URL}/products`);
+  const promise = axios.get(`${process.env.BASE_URL}/products`);
 
   return promise;
 }
