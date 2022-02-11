@@ -3,20 +3,21 @@ import { useAuth } from "../context/Auth";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-const { token } = useAuth();
-
-const heardersAuth = {
-  headers: {
-    Authorization: token,
-  },
-};
-
-async function loginAdmin(body) {
-  return axios.post(`${BASE_URL}/admin/sign-in`, body, heardersAuth);
+function createConfig(token) {
+  return {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
 }
 
-async function registerProductAdmin(body) {
-  return axios.post(`${BASE_URL}/admin/register/product`, body);
+async function loginAdmin(body) {
+  return axios.post(`${BASE_URL}/admin/sign-in`, body);
+}
+
+async function registerProductAdmin(body, token) {
+  const config = createConfig(token);
+  return axios.post(`${BASE_URL}/admin/register/product`, body, config);
 }
 
 //================================================================

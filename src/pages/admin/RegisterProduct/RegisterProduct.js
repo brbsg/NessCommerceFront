@@ -20,7 +20,7 @@ export default function RegisterProduct() {
 
   async function onEnterButton() {
     try {
-      await api.registerProductAdmin;
+      await api.registerProductAdmin(formData, token);
 
       navigate("/admin/register/product");
     } catch (error) {
