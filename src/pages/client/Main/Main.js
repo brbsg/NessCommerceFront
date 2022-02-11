@@ -49,7 +49,8 @@ export default function Main() {
   }
   return (
     <Container>
-      {allProducts.map((product) => (
+      {JSON.stringify(allProducts)}
+      {/* {allProducts.map((product) => (
         <ProductBlock key={product._id}>
           <CartButton onClick={() => alert("adicionar no carrinho")}>
             <img src={CartAdd} alt="Cart-Add" />
@@ -61,7 +62,7 @@ export default function Main() {
             <h1>{product.price}</h1>
           </ProductText>
         </ProductBlock>
-      ))}
+      ))} */}
     </Container>
   );
 }
