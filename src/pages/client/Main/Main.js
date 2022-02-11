@@ -1,68 +1,68 @@
-import React, { useEffect, useState } from 'react';
-import api from '../../../services/api';
+import React, { useEffect, useState } from "react";
+import api from "../../../services/api";
 import styled from "styled-components";
 import CartAdd from "../../../assets/Cart_Add.png";
 
 export default function Main() {
-  const [allProducts, setAllProducts] = useState([])
+  const [allProducts, setAllProducts] = useState([]);
 
-  function loadProducts(){
-    const promise= api.getAllProducts();
+  function loadProducts() {
+    const promise = api.getAllProducts();
 
-    promise.then((response)=>{
-      setAllProducts(response.data);
+    promise.then(({ data }) => {
+      setAllProducts(data);
     });
-    promise.catch((error)=>{
+    promise.catch((error) => {
       console.log(error);
-    })
+    });
   }
 
-  useEffect( loadProducts, []);
+  useEffect(loadProducts, []);
 
-  if (allProducts.length ===0){
+  if (allProducts.length === 0) {
     return (
-    <Container>
-      <ProductBlock>
-        <CartButton onClick={()=>alert("adicionar no carrinho")}>
-          <img src={CartAdd} alt="Cart-Add" />
-        </CartButton>
-        <img />
-        <ProductText>
-          <h3>Celular</h3>
-          <h2>Celular bom</h2>
-          <h1>R$ 15.000,00</h1>
-        </ProductText>
-      </ProductBlock>
-      <ProductBlock>
-        <CartButton onClick={()=>alert("adicionar no carrinho")}>
-          <img src={CartAdd} alt="Cart-Add" />
-        </CartButton>
-        <img />
-        <ProductText>
-          <h3>Outro Celular</h3>
-          <h2>Celular ruim</h2>
-          <h1>R$ 30.000,00</h1>
-        </ProductText>
-      </ProductBlock>
-    </Container>
+      <Container>
+        <ProductBlock>
+          <CartButton onClick={() => alert("adicionar no carrinho")}>
+            <img src={CartAdd} alt="Cart-Add" />
+          </CartButton>
+          <img />
+          <ProductText>
+            <h3>Celular</h3>
+            <h2>Celular bom</h2>
+            <h1>R$ 15.000,00</h1>
+          </ProductText>
+        </ProductBlock>
+        <ProductBlock>
+          <CartButton onClick={() => alert("adicionar no carrinho")}>
+            <img src={CartAdd} alt="Cart-Add" />
+          </CartButton>
+          <img />
+          <ProductText>
+            <h3>Outro Celular</h3>
+            <h2>Celular ruim</h2>
+            <h1>R$ 30.000,00</h1>
+          </ProductText>
+        </ProductBlock>
+      </Container>
     );
   }
   return (
-  <Container>
-    {allProducts.map((product)=>{
-      <ProductBlock key={product._key}>
-        <CartButton onClick={()=>alert("adicionar no carrinho")}>
-          <img src={CartAdd} alt="Cart-Add" />
-        </CartButton>
-        <img src={product.img} alt={product.name}/>
-        <ProductText>
-          <h3>{product.name}</h3>
-          <h2>{product.description}</h2>
-          <h1>{product.price}</h1>
-        </ProductText>
-      </ProductBlock>
-    })}
-  </Container>
+    <Container>
+      {allProducts.map((product) => (
+        <ProductBlock key={product._id}>
+          <CartButton onClick={() => alert("adicionar no carrinho")}>
+            <img src={CartAdd} alt="Cart-Add" />
+          </CartButton>
+          <img src={product.img} alt={product.name} />
+          <ProductText>
+            <h3>{product.name}</h3>
+            <h2>{product.description}</h2>
+            <h1>{product.price}</h1>
+          </ProductText>
+        </ProductBlock>
+      ))}
+    </Container>
   );
 }
 
@@ -79,10 +79,8 @@ const Container = styled.div`
 
   box-sizing: border-box;
 
-  background-color: #FAFAFA;
+  background-color: #fafafa;
 `;
-
-
 
 const ProductBlock = styled.div`
   width: 224px;
@@ -92,9 +90,9 @@ const ProductBlock = styled.div`
   box-sizing: border-box;
 
   border-radius: 5px;
-  border: 1px solid #DBDBDB;
+  border: 1px solid #dbdbdb;
 
-  img{
+  img {
     width: 224px;
     height: 224px;
   }
@@ -103,16 +101,16 @@ const ProductBlock = styled.div`
 const ProductText = styled.div`
   padding: 20px 16px;
 
-  h1{
+  h1 {
     color: #00a650;
-    
+
     font-size: 24px;
   }
-  h2{
+  h2 {
     color: #333;
     font-size: 14px;
   }
-  h3{
+  h3 {
     color: #333;
     font-size: 14px;
     font-weight: 600;
@@ -126,7 +124,7 @@ const CartButton = styled.div`
 
   position: absolute;
 
-  img{
+  img {
     width: 36px;
     height: 36px;
   }

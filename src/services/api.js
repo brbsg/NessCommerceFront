@@ -1,44 +1,44 @@
 import axios from "axios";
 
-const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const BASE_URL = "http://localhost:5000";
 
 function createConfig(token) {
-    return {
-      headers: {
-        'Authorization': token
-      }
-    }
-  }
+  return {
+    headers: {
+      Authorization: token,
+    },
+  };
+}
 
 async function registerClient(body) {
-    const promise = axios.post(`${BASE_URL}/client/register`, body);
-    return promise;
+  const promise = axios.post(`${BASE_URL}/client/register`, body);
+  return promise;
 }
 
 async function loginClient(body) {
-    const promise = axios.post(`${BASE_URL}/client/login`, body);
+  const promise = axios.post(`${BASE_URL}/client/login`, body);
 
-    return promise;
+  return promise;
 }
 
 async function getAllProducts() {
-    const promise = axios.get(`${BASE_URL}/products`);
+  const promise = axios.get(`${BASE_URL}/products`);
 
-    return promise;
+  return promise;
 }
 
 async function getClientContent(token) {
-    const config = createConfig(token);
-    const promise = axios.get(`${BASE_URL}/client/get-user`, config)
+  const config = createConfig(token);
+  const promise = axios.get(`${BASE_URL}/client/get-user`, config);
 
-    return promise;
+  return promise;
 }
 
 const api = {
-    registerClient,
-    loginClient,
-    getAllProducts,
-    getClientContent
-}
+  registerClient,
+  loginClient,
+  getAllProducts,
+  getClientContent,
+};
 
 export default api;
