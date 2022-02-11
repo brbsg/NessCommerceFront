@@ -6,7 +6,7 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 function createConfig(token) {
   return {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: token,
     },
   };
 }
