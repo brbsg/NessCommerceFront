@@ -11,6 +11,7 @@ export default function Main() {
 
     promise.then(({ data }) => {
       console.log(data);
+      setAllProducts(Array(data));
     });
     promise.catch((error) => {
       console.log(error);
