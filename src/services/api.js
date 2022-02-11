@@ -1,4 +1,6 @@
 import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
 
 const BASE_URL = process.env.BASE_URL;
 
@@ -22,7 +24,7 @@ async function loginClient(body) {
 }
 
 async function getAllProducts() {
-  const promise = axios.get(`${process.env.BASE_URL}/products`);
+  const promise = axios.get(`${BASE_URL}/products`);
 
   return promise;
 }
