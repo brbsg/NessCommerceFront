@@ -1,14 +1,25 @@
 import axios from "axios";
+import { useAuth } from "../context/Auth";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-function createConfig(token) {
-  return {
-    headers: {
-      Authorization: token,
-    },
-  };
+const { token } = useAuth();
+
+const heardersAuth = {
+  headers: {
+    Authorization: token,
+  },
+};
+
+async function loginAdmin(body) {
+  return axios.post(`${BASE_URL}/admin/sign-in`, body, heardersAuth);
 }
+
+async function registerProductAdmin(body) {
+  return axios.post(`${BASE_URL}/admin/register/product`, body);
+}
+
+//================================================================
 
 async function registerClient(body) {
   const promise = axios.post(`${BASE_URL}/client/register`, body);
@@ -35,6 +46,9 @@ async function getClientContent(token) {
 }
 
 const api = {
+  loginAdmin,
+  registerProductAdmin,
+
   registerClient,
   loginClient,
   getAllProducts,

@@ -3,6 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/Auth";
+import api from "../../../services/api";
 
 export default function RegisterProduct() {
   const navigate = useNavigate();
@@ -19,13 +20,7 @@ export default function RegisterProduct() {
 
   async function onEnterButton() {
     try {
-      await axios.post(
-        "http://localhost:5000/admin/register/product",
-        formData,
-        {
-          headers: { Authorization: token },
-        }
-      );
+      await api.registerProductAdmin;
 
       navigate("/admin/register/product");
     } catch (error) {

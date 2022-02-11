@@ -3,6 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/Auth";
+import api from "../../../services/api";
 
 export default function SignInAdmin() {
   const navigate = useNavigate();
@@ -16,14 +17,9 @@ export default function SignInAdmin() {
 
   async function onEnterButton() {
     try {
-      const {
-        data: { token },
-      } = await axios.post(
-        "http://localhost:5000/admin/register/product",
-        formData
-      );
+      const data = await api.loginAdmin();
 
-      setToken(token);
+      setToken(data.token);
       navigate("/admin/register/product");
     } catch (error) {
       console.log(error);
