@@ -7,6 +7,7 @@ import SignInClient from "./pages/client/SignInClient/SignInClient";
 import SignUpClient from "./pages/client/SignUpClient/SignUpClient";
 import { AuthProvider } from "./context/Auth";
 import SignInAdmin from "./pages/admin/SignInAdmin/SignInAdmin";
+import RegisterProduct from "./pages/admin/RegisterProduct/RegisterProduct";
 
 export default function App() {
   return (
@@ -18,7 +19,10 @@ export default function App() {
           <Route path="/" element={<Main />} />
           <Route path="/sign-in-client" element={<SignInClient />} />
           <Route path="/sign-up-client" element={<SignUpClient />} />
+
           <Route path="/admin/sign-in" element={<SignInAdmin />} />
+          <Route path="/admin/register/product" element={<RegisterProduct />} />
+          <Route path="/admin/register/admin" element={<SignInAdmin />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

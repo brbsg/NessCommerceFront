@@ -1,27 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import api from "../services/api";
-import useAuth from "../hooks/useAuth";
 import styled from "styled-components";
 import Cart from "../assets/Cart_On.png";
+import { useAuth } from "../context/Auth";
 
 export default function Header() {
+  const location = useLocation();
+
   const [client, setClient] = useState([]);
-  const { auth } = useAuth();
 
-  function loadClientContent() {
-    const promise = api.getClientContent(auth);
+  // const { auth } = useAuth();
 
-    promise.then((response) => {
-      console.log(response.data);
-      setClient(response.data);
-    });
-    promise.catch((error) => {
-      console.log(error);
-    });
-  }
+  // function loadClientContent() {
+  //   const promise = api.getClientContent(auth);
 
-  useEffect(loadClientContent, [auth]);
+  //   promise.then((response) => {
+  //     console.log(response.data);
+  //     setClient(response.data);
+  //   });
+  //   promise.catch((error) => {
+  //     console.log(error);
+  //   });
+  // }
+
+  // useEffect(loadClientContent, [auth]);
+  console.log(location.pathname);
+
+  if (location.pathname.includes("admin")) return <></>;
 
   return (
     <>
@@ -75,7 +81,7 @@ const BlockText = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: right;
-  gap: 8x;
+  gap: 8px;
 `;
 
 const TitleCommerce = styled(Link)`
@@ -141,7 +147,7 @@ const RegisterUser = styled(Link)`
 `;
 
 const BlockTextAdmin = styled.div`
-  top: 2px;
+  top: 5px;
   right: 0px;
   position: absolute;
 

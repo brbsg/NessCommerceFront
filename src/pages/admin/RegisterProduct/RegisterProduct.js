@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../../context/Auth";
 
-export default function SignInAdmin() {
+export default function RegisterProduct() {
   const navigate = useNavigate();
 
-  const { token, setToken } = useAuth();
-
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    name: "",
+    img: "",
+    price: 0,
+    amount: 0,
+    description: "",
   });
 
   async function onEnterButton() {
@@ -20,43 +20,59 @@ export default function SignInAdmin() {
         data: { token },
       } = await axios.post("http://localhost:5000/admin/sign-in", formData);
 
-      setToken(token);
       navigate("/admin/register/product");
+      console.log(token);
     } catch (error) {
       console.log(error);
     }
   }
-
-  useEffect(() => {
-    if (token) {
-      navigate("/admin/register/product");
-    }
-  });
 
   return (
     <Container>
       <Header></Header>
 
       <FormContainer>
-        <span>Olá, Digite o seu email e senha</span>
+        <span>Preencha os dados do produto a ser cadastrado</span>
 
         <InputContainer>
           <Input
             type="text"
-            placeholder="E-mail"
+            placeholder="Nome"
             onChange={({ target }) =>
-              setFormData({ ...formData, email: target.value })
-            }
-          />
-          <Input
-            type="password"
-            placeholder="Senha"
-            onChange={(e) =>
-              setFormData({ ...formData, password: e.target.value })
+              setFormData({ ...formData, name: target.value })
             }
           />
 
-          <EnterButton onClick={onEnterButton}>Entrar</EnterButton>
+          <Input
+            type="text"
+            placeholder="Imagem"
+            onChange={({ target }) =>
+              setFormData({ ...formData, img: target.value })
+            }
+          />
+          <Input
+            type="text"
+            placeholder="Preço"
+            onChange={({ target }) =>
+              setFormData({ ...formData, price: target.value })
+            }
+          />
+          <Input
+            type="text"
+            placeholder="Quantidade"
+            onChange={({ target }) =>
+              setFormData({ ...formData, amount: target.value })
+            }
+          />
+          <Input
+            type="text"
+            placeholder="Descrição"
+            onChange={({ target }) =>
+              setFormData({ ...formData, description: target.value })
+            }
+          />
+
+          <EnterButton onClick={onEnterButton}>Cadastrar</EnterButton>
         </InputContainer>
       </FormContainer>
     </Container>
@@ -86,7 +102,7 @@ const FormContainer = styled.div`
   align-items: center;
   justify-content: space-around;
   width: 550px;
-  height: 60vh;
+  height: 65vh;
   border-radius: 8px;
   gap: 5px;
   padding: 20px;
