@@ -19,34 +19,34 @@ export default function Main() {
 
   useEffect(loadProducts, []);
 
-  if (allProducts.length === 0) {
-    return (
-      <Container>
-        <ProductBlock>
-          <CartButton onClick={() => alert("adicionar no carrinho")}>
-            <img src={CartAdd} alt="Cart-Add" />
-          </CartButton>
-          <img />
-          <ProductText>
-            <h3>Celular</h3>
-            <h2>Celular bom</h2>
-            <h1>R$ 15.000,00</h1>
-          </ProductText>
-        </ProductBlock>
-        <ProductBlock>
-          <CartButton onClick={() => alert("adicionar no carrinho")}>
-            <img src={CartAdd} alt="Cart-Add" />
-          </CartButton>
-          <img />
-          <ProductText>
-            <h3>Outro Celular</h3>
-            <h2>Celular ruim</h2>
-            <h1>R$ 30.000,00</h1>
-          </ProductText>
-        </ProductBlock>
-      </Container>
-    );
-  }
+  // if (allProducts.length === 0) {
+  //   return (
+  //     <Container>
+  //       <ProductBlock>
+  //         <CartButton onClick={() => alert("adicionar no carrinho")}>
+  //           <img src={CartAdd} alt="Cart-Add" />
+  //         </CartButton>
+  //         <img />
+  //         <ProductText>
+  //           <h3>Celular</h3>
+  //           <h2>Celular bom</h2>
+  //           <h1>R$ 15.000,00</h1>
+  //         </ProductText>
+  //       </ProductBlock>
+  //       <ProductBlock>
+  //         <CartButton onClick={() => alert("adicionar no carrinho")}>
+  //           <img src={CartAdd} alt="Cart-Add" />
+  //         </CartButton>
+  //         <img />
+  //         <ProductText>
+  //           <h3>Outro Celular</h3>
+  //           <h2>Celular ruim</h2>
+  //           <h1>R$ 30.000,00</h1>
+  //         </ProductText>
+  //       </ProductBlock>
+  //     </Container>
+  //   );
+  // }
   return (
     <Container>
       {JSON.stringify(allProducts)}
