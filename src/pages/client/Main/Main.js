@@ -10,6 +10,7 @@ export default function Main() {
     const promise = api.getAllProducts();
 
     promise.then(({ data }) => {
+      console.log(data);
       setAllProducts(data);
     });
     promise.catch((error) => {
