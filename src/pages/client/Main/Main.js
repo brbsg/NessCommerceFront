@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import api from "../../../services/api";
 import styled from "styled-components";
-import CartAdd from "../../../assets/Cart_Add.png";
+import { MdOutlineAddShoppingCart } from "react-icons/md";
 
 export default function Main() {
   const [allProducts, setAllProducts] = useState([]);
@@ -11,6 +11,7 @@ export default function Main() {
 
     promise.then(({ data }) => {
       console.log(data);
+
       setAllProducts(data);
     });
     promise.catch((error) => {
@@ -53,7 +54,7 @@ export default function Main() {
       {allProducts.map((product) => (
         <ProductBlock key={product._id}>
           <CartButton onClick={() => alert("adicionar no carrinho")}>
-            <img src={CartAdd} alt="Cart-Add" />
+            <MdOutlineAddShoppingCart fontSize={30} />
           </CartButton>
           <img src={product.img} alt={product.name} />
           <ProductText>

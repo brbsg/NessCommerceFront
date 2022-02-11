@@ -1,30 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import api from "../services/api";
 import styled from "styled-components";
-import Cart from "../assets/Cart_On.png";
-import { useAuth } from "../context/Auth";
+// import {  MdShoppingCart } from "react-icons/md";
 
 export default function Header() {
   const location = useLocation();
 
-  const [client, setClient] = useState([]);
-
-  // const { auth } = useAuth();
-
-  // function loadClientContent() {
-  //   const promise = api.getClientContent(auth);
-
-  //   promise.then((response) => {
-  //     console.log(response.data);
-  //     setClient(response.data);
-  //   });
-  //   promise.catch((error) => {
-  //     console.log(error);
-  //   });
-  // }
-
-  // useEffect(loadClientContent, [auth]);
+  const [client] = useState([]);
 
   if (location.pathname.includes("admin")) return <></>;
 
@@ -50,7 +32,7 @@ export default function Header() {
 
         <CartViewButton>
           <Link to="/client/cart">
-            <img src={Cart} alt="Cart Shopping" />
+            {/* <img src={Cart} alt="Cart Shopping" /> */}
           </Link>
 
           <BlockTextAdmin>
