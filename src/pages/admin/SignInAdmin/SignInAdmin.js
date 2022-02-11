@@ -18,7 +18,10 @@ export default function SignInAdmin() {
     try {
       const {
         data: { token },
-      } = await axios.post("http://localhost:5000/admin/sign-in", formData);
+      } = await axios.post(
+        "http://localhost:5000/admin/register/product",
+        formData
+      );
 
       setToken(token);
       navigate("/admin/register/product");

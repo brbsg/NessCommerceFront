@@ -25,7 +25,6 @@ export default function Header() {
   // }
 
   // useEffect(loadClientContent, [auth]);
-  console.log(location.pathname);
 
   if (location.pathname.includes("admin")) return <></>;
 

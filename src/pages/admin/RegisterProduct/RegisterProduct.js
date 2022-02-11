@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../context/Auth";
 
 export default function RegisterProduct() {
   const navigate = useNavigate();
+
+  const { token } = useAuth();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -16,12 +19,15 @@ export default function RegisterProduct() {
 
   async function onEnterButton() {
     try {
-      const {
-        data: { token },
-      } = await axios.post("http://localhost:5000/admin/sign-in", formData);
+      await axios.post(
+        "http://localhost:5000/admin/register/product",
+        formData,
+        {
+          headers: { Authorization: token },
+        }
+      );
 
       navigate("/admin/register/product");
-      console.log(token);
     } catch (error) {
       console.log(error);
     }
