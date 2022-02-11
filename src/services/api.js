@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useAuth } from "../context/Auth";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+// const BASE_URL = process.env.REACT_APP_BASE_URL;
+const BASE_URL = "https://ness-commerce.herokuapp.com";
 
 function createConfig(token) {
   return {
     headers: {
-      Authorization: token,
+      Authorization: `Bearer ${token}`,
     },
   };
 }

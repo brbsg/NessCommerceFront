@@ -17,7 +17,7 @@ export default function SignInAdmin() {
 
   async function onEnterButton() {
     try {
-      const data = await api.loginAdmin(formData);
+      const { data } = await api.loginAdmin(formData);
 
       setToken(data.token);
       navigate("/admin/register/product");
