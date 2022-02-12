@@ -7,7 +7,7 @@ import api from "../../../services/api";
 export default function SignInAdmin() {
   const navigate = useNavigate();
 
-  const { token, setToken } = useAuth();
+  const { token, setPersistedData } = useAuth();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -18,7 +18,7 @@ export default function SignInAdmin() {
     try {
       const { data } = await api.loginAdmin(formData);
 
-      setToken(data.token);
+      setPersistedData(data.name, data.token);
       navigate("/admin/register/product");
     } catch (error) {
       console.log(error);

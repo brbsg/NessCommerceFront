@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import {  MdShoppingCart } from "react-icons/md";
+import { MdShoppingCart } from "react-icons/md";
+import { useAuth } from "../context/Auth";
 
 export default function Header() {
   const location = useLocation();
-  const [clientName ] = useState(null);
+
+  const { clientName } = useAuth();
 
   if (location.pathname.includes("admin")) return <></>;
   if (location.pathname.includes("client")) return <></>;
@@ -21,8 +23,9 @@ export default function Header() {
 
         <BlockText>
           {clientName !== null ? (
-            <RegisterUser>Olá {clientName}</RegisterUser>
+            <RegisterUser to="">Olá {clientName}</RegisterUser>
           ) : (
+            // <RegisterUser>Olá djnvj</RegisterUser>
             <>
               <RegisterUser to="/sign-in-client">Entrar</RegisterUser>
               <RegisterUser to="/sign-up-client">Cadastrar</RegisterUser>
@@ -32,7 +35,7 @@ export default function Header() {
 
         <CartViewButton>
           <Link to="/client/cart">
-            <MdShoppingCart fontSize={30} color={"white"}/>
+            <MdShoppingCart fontSize={30} color={"white"} />
           </Link>
 
           <BlockTextAdmin>
@@ -107,7 +110,7 @@ const CartViewButton = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
+
   position: relative;
 `;
 

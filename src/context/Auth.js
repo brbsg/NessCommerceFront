@@ -3,18 +3,28 @@ import { createContext, useContext, useState } from "react";
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const persistedToken = JSON.parse(localStorage.getItem("auth"));
-  const [token, setToken] = useState(persistedToken);
-  const [clientName, setClientName] = useState(null);
+  const persistedToken = JSON.parse(
+    localStorage.getItem("token-ness-commerce")
+  );
+  const persistedClientName = JSON.parse(
+    localStorage.getItem("client-name-ness-commerce")
+  );
 
-  function login(token) {
+  const [token, setToken] = useState(persistedToken);
+  const [clientName, setClientName] = useState(persistedClientName);
+
+  function setPersistedData(name, token) {
     setToken(token);
-    localStorage.setItem("auth", JSON.stringify(token));
+    localStorage.setItem("token-ness-commerce", JSON.stringify(token));
+
+    setClientName(name);
+    localStorage.setItem("client-name-ness-commerce", JSON.stringify(name));
   }
 
-
   return (
-    <AuthContext.Provider value={{ clientName, setClientName, login, token, setToken }}>
+    <AuthContext.Provider
+      value={{ clientName, setClientName, setPersistedData, token, setToken }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -60,7 +60,7 @@ async function getClientContent(token) {
 
 async function postConfirmClientBuy(token) {
   const config = createConfig(token);
-  const promise = axios.get(`${BASE_URL}/confirm-buy`, config)
+  const promise = axios.get(`${BASE_URL}/confirm-buy`, config);
 
   return promise;
 }
@@ -75,7 +75,7 @@ const api = {
   getAllProducts,
   getProduct,
   getClientContent,
-  postConfirmClientBuy
+  postConfirmClientBuy,
 };
 
 export default api;

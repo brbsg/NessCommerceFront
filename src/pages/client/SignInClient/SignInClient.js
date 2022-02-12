@@ -11,7 +11,7 @@ export default function SignInClient() {
     email: "",
     password: "",
   });
-  const { setToken } = useAuth();
+  const { setPersistedData } = useAuth();
 
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,19 +22,14 @@ export default function SignInClient() {
 
     const promise = api.loginClient({ ...formData });
 
-    promise.then((response) => {
-      setToken(response.data.token);
-      keepClient()
+    promise.then(({ data }) => {
+      setPersistedData(data.name, data.token);
+      navigate("/");
     });
     promise.catch((error) => {
       console.log(error);
       alert("erro de Login, tente novamente!");
     });
-  }
-
-  function keepClient(){
-
-    navigate("/");
   }
 
   return (
@@ -50,7 +45,7 @@ export default function SignInClient() {
             name="email"
             value={formData.email}
             required
-            />
+          />
           <Input
             placeholder="Senha"
             type="password"
@@ -58,7 +53,7 @@ export default function SignInClient() {
             name="password"
             value={formData.password}
             required
-            />
+          />
           <Button type="submit">Entrar</Button>
         </Form>
         <StyledLink to="/sign-up-client">Cadastre-se</StyledLink>

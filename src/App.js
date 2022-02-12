@@ -24,7 +24,9 @@ export default function App() {
     <AuthProvider>
       <BrowserRouter>
         <GlobalStyles />
+
         <Header />
+
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/sign-in-client" element={<SignInClient />} />

@@ -1,42 +1,48 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import api from '../../../services/api';
-export default function Product(){
-  const {idProduct} = useParams;
+import api from "../../../services/api";
+export default function Product() {
+  const { productID } = useParams();
   const [product, setProduct] = useState(null);
 
-  function loadProduct(){
-    const promise = api.getProduct(idProduct);
+  function loadProduct() {
+    const promise = api.getProduct(productID);
 
-    promise.then((response)=>{
-      console.log(response.data);
-      setProduct(response.data);
-    }).catch((error)=>{
-      console.log(error);
-    });
+    promise
+      .then((response) => {
+        console.log(response.data);
+        setProduct(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
-  useEffect(loadProduct, [idProduct]);
+  useEffect(loadProduct, [productID]);
 
-  if(product === null) return <Container></Container>;
+  if (product === null) return <Container></Container>;
 
   return (
-  <Container>
-    <BlockProduct>
-      <img  alt="product"/>
-    </BlockProduct>
-    <BlockBuy>
-      <BlockText>
-        <h1>{product.name}</h1>
-        <h3>{product.description}</h3>
-        <h2>R$ {product.price},00</h2>
-      </BlockText>
-      <ButtonBuy onClick={() => alert("Produto adicionado ao carrinho, finalize sua compra")}>
-        Adicionar ao Carrinho
-      </ButtonBuy>
-    </BlockBuy>
-  </Container>
+    <Container>
+      <BlockProduct>
+        <img alt="product" />
+      </BlockProduct>
+      <BlockBuy>
+        <BlockText>
+          <h1>{product.name}</h1>
+          <h3>{product.description}</h3>
+          <h2>R$ {product.price},00</h2>
+        </BlockText>
+        <ButtonBuy
+          onClick={() =>
+            alert("Produto adicionado ao carrinho, finalize sua compra")
+          }
+        >
+          Adicionar ao Carrinho
+        </ButtonBuy>
+      </BlockBuy>
+    </Container>
   );
 }
 
@@ -47,7 +53,7 @@ const Container = styled.div`
 
   display: flex;
   justify-content: center;
-  gap:20px;
+  gap: 20px;
 
   box-sizing: border-box;
 `;
@@ -59,9 +65,9 @@ const BlockProduct = styled.div`
   align-items: top;
 
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 25%);
-  background-color: #FAFAFA;
+  background-color: #fafafa;
 
-  img{
+  img {
     width: 390px;
     height: 390px;
     padding: 5px;
@@ -76,26 +82,25 @@ const BlockBuy = styled.div`
   flex-direction: column;
   justify-content: top;
   align-items: center;
-  
+
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 25%);
-  background-color: #FAFAFA;
+  background-color: #fafafa;
 `;
 
 const BlockText = styled.div`
-
-  h1{
+  h1 {
     font-weight: 700;
     font-size: 22px;
-  };
-  h2{
+  }
+  h2 {
     margin-top: 10px;
     font-size: 30px;
     font-weight: 600;
-    color:  #666666;
-  };
-  h3{
+    color: #666666;
+  }
+  h3 {
     font-size: 14px;
-  };
+  }
 `;
 
 const ButtonBuy = styled.button`
@@ -112,7 +117,6 @@ const ButtonBuy = styled.button`
   font-style: normal;
   line-height: 23px;
   text-align: center;
-
 
   color: #ffffff;
   background: #023059;
