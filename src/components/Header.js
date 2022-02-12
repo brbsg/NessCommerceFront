@@ -21,7 +21,7 @@ export default function Header() {
 
         <BlockText>
           {clientName !== null ? (
-            <RegisterUser>Olá {clientName.name}</RegisterUser>
+            <RegisterUser>Olá {clientName}</RegisterUser>
           ) : (
             <>
               <RegisterUser to="/sign-in-client">Entrar</RegisterUser>
