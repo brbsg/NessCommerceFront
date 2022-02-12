@@ -7,7 +7,7 @@ const BASE_URL = "http://localhost:5000";
 function createConfig(token) {
   return {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: token,
     },
   };
 }
@@ -54,6 +54,7 @@ async function getClientContent(token) {
 
 const api = {
   loginAdmin,
+  registerAdmin,
   registerProductAdmin,
 
   registerClient,

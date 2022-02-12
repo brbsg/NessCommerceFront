@@ -17,7 +17,7 @@ export default function RegisterAdmin() {
 
   async function onEnterButton() {
     try {
-      await api.registerProductAdmin(formData, token);
+      await api.registerAdmin(formData, token);
 
       navigate("/admin/register/product");
     } catch (error) {
@@ -49,15 +49,15 @@ export default function RegisterAdmin() {
 
           <Input
             type="text"
-            placeholder="Imagem"
+            placeholder="E-mail"
             onChange={({ target }) =>
               setFormData({ ...formData, email: target.value })
             }
           />
 
           <Input
-            type="text"
-            placeholder="Preço"
+            type="password"
+            placeholder="Senha"
             onChange={({ target }) =>
               setFormData({ ...formData, password: target.value })
             }
