@@ -23,7 +23,7 @@ export default function SignInClient() {
     const promise = api.loginClient({ ...formData });
 
     promise.then((response) => {
-      setToken(response.data);
+      setToken(response.data.token);
       keepClient()
     });
     promise.catch((error) => {

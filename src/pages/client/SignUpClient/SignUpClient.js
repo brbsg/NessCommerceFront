@@ -20,7 +20,7 @@ export default function SignUpClient(){
         event.preventDefault();
 
         const promise = api.registerClient({...formData});
-        promise.then((response)=>{
+        promise.then(()=>{
             navigate("/sign-in-client");
         })
     }

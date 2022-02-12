@@ -2,29 +2,13 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import {  MdShoppingCart } from "react-icons/md";
-import { useEffect } from "react/cjs/react.development";
-import { useAuth } from "../context/Auth";
 
 export default function Header() {
   const location = useLocation();
-  const { token } = useAuth();
-  const [clientName, setClientName] = useState(null);
+  const [clientName ] = useState(null);
 
   if (location.pathname.includes("admin")) return <></>;
   if (location.pathname.includes("client")) return <></>;
-
-  function getUserName(){
-    const promise = api.getClientContent(token);
-
-    promise.then(({ data }) => {
-      setClientName(data.name);
-    });
-    promise.catch((error) => {
-      console.log(error);
-    });
-  }
-
-  useEffect(getUserName,[token]);
 
   return (
     <>
