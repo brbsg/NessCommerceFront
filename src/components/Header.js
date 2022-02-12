@@ -1,27 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import api from "../services/api";
-import useAuth from "../hooks/useAuth";
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import Cart from "../assets/Cart_On.png";
+import {  MdShoppingCart } from "react-icons/md";
 
 export default function Header() {
-  const [client, setClient] = useState([]);
-  const { auth } = useAuth();
+  const location = useLocation();
 
-  function loadClientContent() {
-    const promise = api.getClientContent(auth);
+  const [client] = useState([]);
 
-    promise.then((response) => {
-      console.log(response.data);
-      setClient(response.data);
-    });
-    promise.catch((error) => {
-      console.log(error);
-    });
-  }
+  if (location.pathname.includes("admin")) return <></>;
+  if (location.pathname.includes("client")) return <></>;
 
-  useEffect(loadClientContent, [auth]);
+  //O objeto com o client deve ser passado via Context.
 
   return (
     <>
@@ -45,7 +35,7 @@ export default function Header() {
 
         <CartViewButton>
           <Link to="/client/cart">
-            <img src={Cart} alt="Cart Shopping" />
+            <MdShoppingCart fontSize={30} color={"white"}/>
           </Link>
 
           <BlockTextAdmin>
@@ -75,7 +65,7 @@ const BlockText = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: right;
-  gap: 8x;
+  gap: 8px;
 `;
 
 const TitleCommerce = styled(Link)`
@@ -113,18 +103,14 @@ const SeachInput = styled.input`
 `;
 
 const CartViewButton = styled.div`
+  height: 100%;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  box-sizing: border-box;
+  
   position: relative;
-
-  img {
-    width: 36px;
-    height: 36px;
-  }
 `;
 
 const RegisterUser = styled(Link)`
@@ -141,7 +127,7 @@ const RegisterUser = styled(Link)`
 `;
 
 const BlockTextAdmin = styled.div`
-  top: 2px;
+  top: 5px;
   right: 0px;
   position: absolute;
 

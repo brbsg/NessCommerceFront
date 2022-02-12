@@ -1,7 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import api from '../../../services/api';
 export default function Product(){
-  // const [Product, setProduct] = useState([]);
+  const {idProduct} = useParams;
+  const [product, setProduct] = useState(null);
+
+  function loadProduct(){
+    const promise = api.getProduct(idProduct);
+
+    promise.then((response)=>{
+      console.log(response.data);
+      setProduct(response.data);
+    }).catch((error)=>{
+      console.log(error);
+    });
+  }
+
+  useEffect(loadProduct, [idProduct]);
+
+  if(product === null) return <Container></Container>;
 
   return (
   <Container>
@@ -10,9 +28,9 @@ export default function Product(){
     </BlockProduct>
     <BlockBuy>
       <BlockText>
-        <h1>Product.name</h1>
-        <h3>Product.description</h3>
-        <h2>R$ Product.price</h2>
+        <h1>{product.name}</h1>
+        <h3>{product.description}</h3>
+        <h2>R$ {product.price},00</h2>
       </BlockText>
       <ButtonBuy>Adicionar ao Carrinho</ButtonBuy>
     </BlockBuy>
