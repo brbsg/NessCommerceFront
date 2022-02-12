@@ -29,7 +29,13 @@ export default function RegisterProduct() {
 
   return (
     <Container>
-      <Header></Header>
+      <Header>
+        <span onClick={() => navigate("/")}>ness commerce</span>
+      </Header>
+
+      <span onClick={() => navigate("/admin/register/admin")}>
+        Cadastrar Admin
+      </span>
 
       <FormContainer>
         <span>Preencha os dados do produto a ser cadastrado</span>
@@ -85,15 +91,44 @@ const Container = styled.div`
   width: 100vw;
   align-items: center;
   justify-content: center;
+  position: relative;
+
+  span:nth-child(2) {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-style: normal;
+    font-size: 15px;
+    cursor: pointer;
+    z-index: 2;
+
+    color: #ffffff;
+  }
 `;
 
 const Header = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+
   position: fixed;
   top: 0;
   height: 35vh;
   width: 100vw;
   background-color: #023059;
-  z-index: -1;
+  padding: 20px;
+  z-index: 1;
+
+  span {
+    all: unset;
+    display: block;
+    font-style: normal;
+    font-size: 40px;
+    font-family: "Bungee Inline";
+    cursor: pointer;
+
+    color: #ffffff;
+  }
 `;
 
 const FormContainer = styled.div`
@@ -112,6 +147,7 @@ const FormContainer = styled.div`
 
   font-size: 30px;
   font-weight: bold;
+  z-index: 2;
 
   @media (max-width: 600px) {
     width: 100vw;

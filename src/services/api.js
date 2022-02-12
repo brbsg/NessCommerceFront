@@ -1,18 +1,24 @@
 import axios from "axios";
 
 // const BASE_URL = process.env.REACT_APP_BASE_URL;
-const BASE_URL = "https://ness-commerce.herokuapp.com";
+// const BASE_URL = "https://ness-commerce.herokuapp.com";
+const BASE_URL = "http://localhost:5000";
 
 function createConfig(token) {
   return {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: token,
     },
   };
 }
 
 async function loginAdmin(body) {
   return axios.post(`${BASE_URL}/admin/sign-in`, body);
+}
+
+async function registerAdmin(body, token) {
+  const config = createConfig(token);
+  return axios.post(`${BASE_URL}/admin/register/admin`, body, config);
 }
 
 async function registerProductAdmin(body, token) {
@@ -61,6 +67,7 @@ async function postConfirmClientBuy(token) {
 
 const api = {
   loginAdmin,
+  registerAdmin,
   registerProductAdmin,
 
   registerClient,

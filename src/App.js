@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import webfontloader from "webfontloader";
+
 import Header from "./components/Header";
 import GlobalStyles from "./globalStyle/GlobalStyles";
 import Main from "./pages/client/Main/Main";
@@ -9,8 +11,15 @@ import { AuthProvider } from "./context/Auth";
 import SignInAdmin from "./pages/admin/SignInAdmin/SignInAdmin";
 import Product from "./pages/client/Product/Product";
 import RegisterProduct from "./pages/admin/RegisterProduct/RegisterProduct";
+import RegisterAdmin from "./pages/admin/RegisterAdmin/RegisterAdmin";
 
 export default function App() {
+  useEffect(() => {
+    webfontloader.load({
+      google: { families: ["Bungee Inline"] },
+    });
+  }, []);
+
   return (
     <AuthProvider>
       <BrowserRouter>
@@ -23,7 +32,7 @@ export default function App() {
           <Route path="/products/:productID" element={<Product />} />
           <Route path="/admin/sign-in" element={<SignInAdmin />} />
           <Route path="/admin/register/product" element={<RegisterProduct />} />
-          <Route path="/admin/register/admin" element={<SignInAdmin />} />
+          <Route path="/admin/register/admin" element={<RegisterAdmin />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
