@@ -26,7 +26,7 @@ export default function Main() {
     <Container>
       {allProducts.map((product) => (
         <ProductBlock to={`/products/${product._id}`} key={product._id}>
-          <CartButton onClick={() => alert("adicionar no carrinho")}>
+          <CartButton onClick={() => alert("Produto adicionado ao carrinho, finalize sua compra")}>
             <MdOutlineAddShoppingCart fontSize={30} />
           </CartButton>
           <img src={product.img} alt={product.name} />

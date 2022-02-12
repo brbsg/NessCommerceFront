@@ -2,16 +2,29 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import {  MdShoppingCart } from "react-icons/md";
+import { useEffect } from "react/cjs/react.development";
+import { useAuth } from "../context/Auth";
 
 export default function Header() {
   const location = useLocation();
-
-  const [client] = useState([]);
+  const { token } = useAuth();
+  const [clientName, setClientName] = useState(null);
 
   if (location.pathname.includes("admin")) return <></>;
   if (location.pathname.includes("client")) return <></>;
 
-  //O objeto com o client deve ser passado via Context.
+  function getUserName(){
+    const promise = api.getClientContent(token);
+
+    promise.then(({ data }) => {
+      setClientName(data.name);
+    });
+    promise.catch((error) => {
+      console.log(error);
+    });
+  }
+
+  useEffect(getUserName,[token]);
 
   return (
     <>
@@ -23,8 +36,8 @@ export default function Header() {
         <SeachInput />
 
         <BlockText>
-          {client.length !== 0 ? (
-            <RegisterUser>Olá {client.name}</RegisterUser>
+          {clientName !== null ? (
+            <RegisterUser>Olá {clientName.name}</RegisterUser>
           ) : (
             <>
               <RegisterUser to="/sign-in-client">Entrar</RegisterUser>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import useAuth from '../../hooks/useAuth';
+import { useAuth } from "../../../context/Auth";
 import api from "../../../services/api";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -11,7 +11,7 @@ export default function SignInClient() {
     email: "",
     password: "",
   });
-  // const { login } = useAuth();
+  const { setToken } = useAuth();
 
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,14 +21,20 @@ export default function SignInClient() {
     event.preventDefault();
 
     const promise = api.loginClient({ ...formData });
+
     promise.then((response) => {
-      // login(response.data);
-      navigate("/");
+      setToken(response.data);
+      keepClient()
     });
     promise.catch((error) => {
       console.log(error);
       alert("erro de Login, tente novamente!");
     });
+  }
+
+  function keepClient(){
+
+    navigate("/");
   }
 
   return (

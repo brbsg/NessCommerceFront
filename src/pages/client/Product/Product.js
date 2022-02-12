@@ -32,7 +32,9 @@ export default function Product(){
         <h3>{product.description}</h3>
         <h2>R$ {product.price},00</h2>
       </BlockText>
-      <ButtonBuy>Adicionar ao Carrinho</ButtonBuy>
+      <ButtonBuy onClick={() => alert("Produto adicionado ao carrinho, finalize sua compra")}>
+        Adicionar ao Carrinho
+      </ButtonBuy>
     </BlockBuy>
   </Container>
   );
