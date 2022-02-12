@@ -14,7 +14,7 @@ export default function Header() {
     <>
       <Container>
         <BlockText>
-          <TitleCommerce to="/">NessCommerce</TitleCommerce>
+          <TitleCommerce to="/">Ness Commerce</TitleCommerce>
         </BlockText>
 
         <SeachInput />
@@ -68,8 +68,9 @@ const BlockText = styled.div`
 const TitleCommerce = styled(Link)`
   all: unset;
   font-style: normal;
-  font-weight: bold;
-  font-size: 27px;
+  font-size: 40px;
+  font-family: "Bungee Inline";
+  cursor: pointer;
 
   color: #ffffff;
 

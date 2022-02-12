@@ -1,62 +1,69 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/Auth";
 import api from "../../../services/api";
 
-export default function SignInAdmin() {
+export default function RegisterAdmin() {
   const navigate = useNavigate();
 
-  const { token, setToken } = useAuth();
+  const { token } = useAuth();
 
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: "",
   });
 
   async function onEnterButton() {
     try {
-      const { data } = await api.loginAdmin(formData);
+      await api.registerProductAdmin(formData, token);
 
-      setToken(data.token);
       navigate("/admin/register/product");
     } catch (error) {
       console.log(error);
     }
   }
 
-  useEffect(() => {
-    if (token) {
-      navigate("/admin/register/product");
-    }
-  });
-
   return (
     <Container>
       <Header>
-        <span>ness commerce</span>
+        <span onClick={() => navigate("/")}>ness commerce</span>
       </Header>
 
+      <span onClick={() => navigate("/admin/register/product")}>
+        Cadastrar Produto
+      </span>
+
       <FormContainer>
-        <span>Olá, Digite o seu email e senha</span>
+        <span>Preencha os dados do Admin a ser cadastrado</span>
 
         <InputContainer>
           <Input
             type="text"
-            placeholder="E-mail"
+            placeholder="Nome"
+            onChange={({ target }) =>
+              setFormData({ ...formData, name: target.value })
+            }
+          />
+
+          <Input
+            type="text"
+            placeholder="Imagem"
             onChange={({ target }) =>
               setFormData({ ...formData, email: target.value })
             }
           />
+
           <Input
-            type="password"
-            placeholder="Senha"
-            onChange={(e) =>
-              setFormData({ ...formData, password: e.target.value })
+            type="text"
+            placeholder="Preço"
+            onChange={({ target }) =>
+              setFormData({ ...formData, password: target.value })
             }
           />
 
-          <EnterButton onClick={onEnterButton}>Entrar</EnterButton>
+          <EnterButton onClick={onEnterButton}>Cadastrar</EnterButton>
         </InputContainer>
       </FormContainer>
     </Container>
@@ -69,10 +76,24 @@ const Container = styled.div`
   width: 100vw;
   align-items: center;
   justify-content: center;
+  position: relative;
+
+  span:nth-child(2) {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-style: normal;
+    font-size: 15px;
+    cursor: pointer;
+    z-index: 2;
+
+    color: #ffffff;
+  }
 `;
 
 const Header = styled.div`
   display: flex;
+  align-items: flex-start;
   justify-content: center;
 
   position: fixed;
@@ -80,10 +101,12 @@ const Header = styled.div`
   height: 35vh;
   width: 100vw;
   background-color: #023059;
-  z-index: -1;
   padding: 20px;
+  z-index: 1;
 
   span {
+    all: unset;
+    display: block;
     font-style: normal;
     font-size: 40px;
     font-family: "Bungee Inline";
@@ -99,7 +122,7 @@ const FormContainer = styled.div`
   align-items: center;
   justify-content: space-around;
   width: 550px;
-  height: 60vh;
+  height: 65vh;
   border-radius: 8px;
   gap: 5px;
   padding: 20px;
@@ -109,6 +132,7 @@ const FormContainer = styled.div`
 
   font-size: 30px;
   font-weight: bold;
+  z-index: 2;
 
   @media (max-width: 600px) {
     width: 100vw;
