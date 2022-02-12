@@ -20,124 +20,129 @@ export default function SignUpClient(){
         event.preventDefault();
 
         const promise = api.registerClient({...formData});
-        promise.then((response)=>{
+        promise.then(()=>{
             navigate("/sign-in-client");
         })
     }
 
     return (
     <Container>
-        <h1>NessCommerce</h1>
-        <Form onSubmit={handleSubmit}>
-            <Input
-                placeholder="Nome"
-                type="text"
-                onChange={handleChange}
-                name="name"
-                value={formData.name}
-                required
-                />
-            <Input
-                placeholder="E-mail"
-                type="email"
-                onChange={handleChange}
-                name="email"
-                value={formData.email}
-                required
-                />
-            <Input
-                placeholder="Senha"
-                type="password"
-                onChange={handleChange}
-                name="password"
-                value={formData.password}
-                required
-                />
-            <Button type="submit">Cadastrar</Button>
-        </Form>
-        <StyledLink to="/sign-in-client">Faça login</StyledLink>
+        <Header></Header>
+        <FormContainer>
+            <h1>NessCommerce</h1>
+            <Form onSubmit={handleSubmit}>
+                <Input
+                    placeholder="Nome"
+                    type="text"
+                    onChange={handleChange}
+                    name="name"
+                    value={formData.name}
+                    required
+                    />
+                <Input
+                    placeholder="E-mail"
+                    type="email"
+                    onChange={handleChange}
+                    name="email"
+                    value={formData.email}
+                    required
+                    />
+                <Input
+                    placeholder="Senha"
+                    type="password"
+                    onChange={handleChange}
+                    name="password"
+                    value={formData.password}
+                    required
+                    />
+                <Button type="submit">Cadastrar</Button>
+            </Form>
+            <StyledLink to="/sign-in-client">Faça login</StyledLink>
+        </FormContainer>
     </Container>
     );
 }
 
 const Container = styled.div`
-  width: 80vw;
+  display: flex;
   height: 100vh;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+`;
 
+const Header = styled.div`
+  position: fixed;
+  top: 0;
+  height: 35vh;
+  width: 100vw;
+  background-color: #023059;
+  z-index: -1;
+`;
+
+const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: space-around;
+  width: 550px;
+  height: 60vh;
+  border-radius: 8px;
+  gap: 5px;
+  padding: 20px;
 
-  background-color: #FAFAFA;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
-  h1{
-      margin-bottom: 50px;
+  font-size: 30px;
+  font-weight: bold;
 
-      font-size: 27px;
-      font-style: bold;
-      font-weight: 700;
-  }
-
-  @media (max-width: 700px) {
-    width: 100%;
+  @media (max-width: 600px) {
+    width: 100vw;
+    border-radius: 0;
+    box-shadow: inherit;
   }
 `;
 
 const Form = styled.form`
-  width: 380px;
-
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 12px;
+  width: 100%;
+  height: content;
+  flex-direction: column;
+  gap: 5px;
 
-  margin-bottom: 32px;
-
-  @media (max-width: 700px) {
-    width: 100%;
+  @media (max-width: 600px) {
+    width: 100vw;
+    border-radius: 0;
+    box-shadow: inherit;
   }
 `;
 
 const Input = styled.input`
-    all: unset;
-    box-sizing: border-box;
-    font-family: sans-serif;
+  all: unset;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  width: 100%;
+  height: 6vh;
+  padding: 10px;
 
-    width: 100%;
-
-    color: #000;
-    background: #FFFFFF;
-    padding: 15px 16px;
-    border-radius: 5px;
-
-    ::placeholder {
-        color: #000;
-        font-family: sans-serif;
-    }
+  font-size: 20px;
 `;
 
 const Button = styled.button`
-    all: unset;
-    box-sizing: border-box;
-    cursor: pointer;
-
-    width: 100%;
-
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 23px;
-    letter-spacing: 0em;
-
-    text-align: center;
-
-    padding: 12px;
-
-    color: #FFFFFF;
-    background: #023059;
-    border-radius: 5px;
+  margin-top: 15px;
+  border: 0;
+  border-radius: 10px;
+  width: 100%;
+  height: 6vh;
+  padding: 10px;
+  background-color: #023059;
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
 `;
 
 const StyledLink = styled(Link)`

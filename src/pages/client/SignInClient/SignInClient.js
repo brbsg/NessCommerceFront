@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import useAuth from '../../hooks/useAuth';
+import { useAuth } from "../../../context/Auth";
 import api from "../../../services/api";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -11,7 +11,7 @@ export default function SignInClient() {
     email: "",
     password: "",
   });
-  // const { login } = useAuth();
+  const { setToken } = useAuth();
 
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,9 +21,10 @@ export default function SignInClient() {
     event.preventDefault();
 
     const promise = api.loginClient({ ...formData });
+
     promise.then((response) => {
-      // login(response.data);
-      navigate("/");
+      setToken(response.data.token);
+      keepClient()
     });
     promise.catch((error) => {
       console.log(error);
@@ -31,111 +32,121 @@ export default function SignInClient() {
     });
   }
 
+  function keepClient(){
+
+    navigate("/");
+  }
+
   return (
     <Container>
-      <h1>NessCommerce</h1>
-      <Form onSubmit={handleSubmit}>
-        <Input
-          placeholder="E-mail"
-          type="email"
-          onChange={(e) => handleChange(e)}
-          name="email"
-          value={formData.email}
-          required
-        />
-        <Input
-          placeholder="Senha"
-          type="password"
-          onChange={(e) => handleChange(e)}
-          name="password"
-          value={formData.password}
-          required
-        />
-        <Button type="submit">Entrar</Button>
-      </Form>
-      <StyledLink to="/sign-up-client">Cadastre-se</StyledLink>
+      <Header></Header>
+      <FormContainer>
+        <h1>NessCommerce</h1>
+        <Form onSubmit={handleSubmit}>
+          <Input
+            placeholder="E-mail"
+            type="email"
+            onChange={(e) => handleChange(e)}
+            name="email"
+            value={formData.email}
+            required
+            />
+          <Input
+            placeholder="Senha"
+            type="password"
+            onChange={(e) => handleChange(e)}
+            name="password"
+            value={formData.password}
+            required
+            />
+          <Button type="submit">Entrar</Button>
+        </Form>
+        <StyledLink to="/sign-up-client">Cadastre-se</StyledLink>
+      </FormContainer>
     </Container>
   );
 }
 
 const Container = styled.div`
-  width: 80vw;
+  display: flex;
   height: 100vh;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+`;
 
+const Header = styled.div`
+  position: fixed;
+  top: 0;
+  height: 35vh;
+  width: 100vw;
+  background-color: #023059;
+  z-index: -1;
+`;
+
+const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: space-around;
+  width: 550px;
+  height: 60vh;
+  border-radius: 8px;
+  gap: 5px;
+  padding: 20px;
 
-  background-color: #fafafa;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
-  h1 {
-    margin-bottom: 50px;
+  font-size: 30px;
+  font-weight: bold;
 
-    font-size: 27px;
-    font-style: bold;
-    font-weight: 700;
-  }
-
-  @media (max-width: 700px) {
-    width: 100%;
+  @media (max-width: 600px) {
+    width: 100vw;
+    border-radius: 0;
+    box-shadow: inherit;
   }
 `;
 
 const Form = styled.form`
-  width: 380px;
-
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 12px;
+  width: 100%;
+  height: content;
+  flex-direction: column;
+  gap: 5px;
 
-  margin-bottom: 32px;
-
-  @media (max-width: 700px) {
-    width: 100%;
+  @media (max-width: 600px) {
+    width: 100vw;
+    border-radius: 0;
+    box-shadow: inherit;
   }
 `;
 
 const Input = styled.input`
   all: unset;
   box-sizing: border-box;
-  font-family: sans-serif;
-
+  border: 1px solid #ddd;
+  border-radius: 10px;
   width: 100%;
+  height: 6vh;
+  padding: 10px;
 
-  color: #000;
-  background: #ffffff;
-  padding: 15px 16px;
-  border-radius: 5px;
-
-  ::placeholder {
-    color: #000;
-    font-family: sans-serif;
-  }
+  font-size: 20px;
 `;
 
 const Button = styled.button`
-  all: unset;
-  box-sizing: border-box;
-  cursor: pointer;
-
+  margin-top: 15px;
+  border: 0;
+  border-radius: 10px;
   width: 100%;
-
+  height: 6vh;
+  padding: 10px;
+  background-color: #023059;
+  color: white;
   font-size: 20px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 23px;
-  letter-spacing: 0em;
-
-  text-align: center;
-
-  padding: 12px;
-
-  color: #ffffff;
-  background: #023059;
-  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
 `;
 
 const StyledLink = styled(Link)`

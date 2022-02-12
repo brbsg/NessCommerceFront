@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import api from "../../../services/api";
 import styled from "styled-components";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
@@ -21,46 +22,18 @@ export default function Main() {
 
   useEffect(loadProducts, []);
 
-  // if (allProducts.length === 0) {
-  //   return (
-  //     <Container>
-  //       <ProductBlock>
-  //         <CartButton onClick={() => alert("adicionar no carrinho")}>
-  //           <img src={CartAdd} alt="Cart-Add" />
-  //         </CartButton>
-  //         <img />
-  //         <ProductText>
-  //           <h3>Celular</h3>
-  //           <h2>Celular bom</h2>
-  //           <h1>R$ 15.000,00</h1>
-  //         </ProductText>
-  //       </ProductBlock>
-  //       <ProductBlock>
-  //         <CartButton onClick={() => alert("adicionar no carrinho")}>
-  //           <img src={CartAdd} alt="Cart-Add" />
-  //         </CartButton>
-  //         <img />
-  //         <ProductText>
-  //           <h3>Outro Celular</h3>
-  //           <h2>Celular ruim</h2>
-  //           <h1>R$ 30.000,00</h1>
-  //         </ProductText>
-  //       </ProductBlock>
-  //     </Container>
-  //   );
-  // }
   return (
     <Container>
       {allProducts.map((product) => (
-        <ProductBlock key={product._id}>
-          <CartButton onClick={() => alert("adicionar no carrinho")}>
+        <ProductBlock to={`/products/${product._id}`} key={product._id}>
+          <CartButton onClick={() => alert("Produto adicionado ao carrinho, finalize sua compra")}>
             <MdOutlineAddShoppingCart fontSize={30} />
           </CartButton>
           <img src={product.img} alt={product.name} />
           <ProductText>
             <h3>{product.name}</h3>
             <h2>{product.description}</h2>
-            <h1>{product.price}</h1>
+            <h1>R$ {Number(product.price)},00</h1>
           </ProductText>
         </ProductBlock>
       ))}
@@ -75,8 +48,6 @@ const Container = styled.div`
 
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
   gap: 15px;
 
   box-sizing: border-box;
@@ -84,7 +55,8 @@ const Container = styled.div`
   background-color: #fafafa;
 `;
 
-const ProductBlock = styled.div`
+const ProductBlock = styled(Link)`
+  all: unset;
   width: 224px;
   height: 330px;
 
@@ -95,24 +67,28 @@ const ProductBlock = styled.div`
   border: 1px solid #dbdbdb;
 
   img {
-    width: 224px;
-    height: 224px;
+    width: 220px;
+    height: 220px;
+    padding: 2px;
   }
 `;
 
 const ProductText = styled.div`
   padding: 20px 16px;
+  
 
   h1 {
+    margin: 3px 0;
     color: #00a650;
-
     font-size: 24px;
   }
   h2 {
+    margin: 3px 0;
     color: #333;
     font-size: 14px;
   }
   h3 {
+    margin: 3px 0;
     color: #333;
     font-size: 14px;
     font-weight: 600;
@@ -124,10 +100,14 @@ const CartButton = styled.div`
   right: 10px;
   top: 10px;
 
-  position: absolute;
+  width: 40px;
+  height:40px;
 
-  img {
-    width: 36px;
-    height: 36px;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  border-radius: 50%;
+  background-color: #FFFFFF;
 `;

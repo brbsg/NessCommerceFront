@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
-// import {  MdShoppingCart } from "react-icons/md";
+import {  MdShoppingCart } from "react-icons/md";
 
 export default function Header() {
   const location = useLocation();
-
-  const [client] = useState([]);
+  const [clientName ] = useState(null);
 
   if (location.pathname.includes("admin")) return <></>;
+  if (location.pathname.includes("client")) return <></>;
 
   return (
     <>
@@ -20,8 +20,8 @@ export default function Header() {
         <SeachInput />
 
         <BlockText>
-          {client.length !== 0 ? (
-            <RegisterUser>Olá {client.name}</RegisterUser>
+          {clientName !== null ? (
+            <RegisterUser>Olá {clientName}</RegisterUser>
           ) : (
             <>
               <RegisterUser to="/sign-in-client">Entrar</RegisterUser>
@@ -32,7 +32,7 @@ export default function Header() {
 
         <CartViewButton>
           <Link to="/client/cart">
-            {/* <img src={Cart} alt="Cart Shopping" /> */}
+            <MdShoppingCart fontSize={30} color={"white"}/>
           </Link>
 
           <BlockTextAdmin>
@@ -101,18 +101,14 @@ const SeachInput = styled.input`
 `;
 
 const CartViewButton = styled.div`
+  height: 100%;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  box-sizing: border-box;
+  
   position: relative;
-
-  img {
-    width: 36px;
-    height: 36px;
-  }
 `;
 
 const RegisterUser = styled(Link)`

@@ -45,9 +45,22 @@ async function getAllProducts() {
   return promise;
 }
 
+async function getProduct(body) {
+  const promise = axios.get(`${BASE_URL}/products/${body}`);
+
+  return promise;
+}
+
 async function getClientContent(token) {
   const config = createConfig(token);
-  const promise = axios.get(`${BASE_URL}/client/get-user`, config);
+  const promise = axios.get(`${BASE_URL}/user`, config);
+
+  return promise;
+}
+
+async function postConfirmClientBuy(token) {
+  const config = createConfig(token);
+  const promise = axios.get(`${BASE_URL}/confirm-buy`, config)
 
   return promise;
 }
@@ -60,7 +73,9 @@ const api = {
   registerClient,
   loginClient,
   getAllProducts,
+  getProduct,
   getClientContent,
+  postConfirmClientBuy
 };
 
 export default api;
