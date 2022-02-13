@@ -67,7 +67,7 @@ async function postSendToCart(token, id) {
 
 async function postConfirmBuy(token) {
   const config = createConfig(token);
-  const promise = axios.post(`${BASE_URL}/confirm-buy`, config);
+  const promise = axios.post(`${BASE_URL}/confirm-buy`, {}, config);
 
   return promise;
 }
