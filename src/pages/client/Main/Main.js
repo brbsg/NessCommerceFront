@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../../../services/api";
 import styled from "styled-components";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { useAuth } from "../../../context/Auth";
 
 export default function Main() {
+  const navigate = useNavigate();
+
   const [allProducts, setAllProducts] = useState([]);
   const { token } = useAuth();
 
@@ -39,17 +41,26 @@ export default function Main() {
   return (
     <Container>
       {allProducts.map((product) => (
-        <ProductBlock to={`/products/${product._id}`} key={product._id}>
-          <CartButton onClick={() => handleProducttoCart(product._id)}>
-            <MdOutlineAddShoppingCart fontSize={30} />
+        //Essa div é para não deixar aumentar o tamanho do Product block ao dar o hover
+        <ParentDiv key={product._id}>
+          <CartButton
+            className="cart-icon"
+            onClick={() => handleProducttoCart(product._id)}
+          >
+            <MdOutlineAddShoppingCart color="#023059" fontSize={25} />
           </CartButton>
-          <img src={product.img} alt={product.name} />
-          <ProductText to={`/products/${product._id}`}>
-            <h3>{product.name}</h3>
-            <h2>{product.description}</h2>
-            <h1>R$ {Number(product.price)},00</h1>
-          </ProductText>
-        </ProductBlock>
+          <ProductBlock
+            className="product-block"
+            onClick={() => navigate(`/products/${product._id}`)}
+          >
+            <img src={product.img} alt={product.name} />
+            <ProductText to="">
+              <h3>{product.name}</h3>
+              <h2>{product.description}</h2>
+              <h1>R$ {Number(product.price)},00</h1>
+            </ProductText>
+          </ProductBlock>
+        </ParentDiv>
       ))}
     </Container>
   );
@@ -57,35 +68,63 @@ export default function Main() {
 
 const Container = styled.div`
   width: 80vw;
-  height: 100vh;
+  height: auto;
   padding: 0 10px;
   padding-top: 15vh;
 
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 20px;
 
   box-sizing: border-box;
 
-  background-color: #fafafa;
+  background-color: #f1f1f1;
+`;
+
+const ParentDiv = styled.div`
+  width: 224px;
+  height: 330px;
+  position: relative;
+
+  :hover {
+    .cart-icon {
+      display: flex;
+    }
+  }
 `;
 
 const ProductBlock = styled.div`
   width: 224px;
   height: 330px;
-
-  position: relative;
+  cursor: pointer;
   box-sizing: border-box;
 
   border-radius: 5px;
-  border: 1px solid #dbdbdb;
+  background-color: white;
+  padding: 10px;
+  position: relative;
+
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 
   img {
-    width: 220px;
-    height: 220px;
-    padding: 2px;
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
 
     border-radius: 5px;
+  }
+
+  @media (max-width: 900px) {
+    .cart-icon {
+      display: flex;
+    }
+  }
+
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    height: 380px;
+    z-index: 2;
   }
 `;
 
@@ -113,17 +152,23 @@ const ProductText = styled(Link)`
 `;
 
 const CartButton = styled.div`
-  right: 10px;
-  top: 10px;
+  display: none;
+  position: absolute;
+  right: 15px;
+  top: 15px;
 
   width: 40px;
   height: 40px;
 
-  display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 
-  position: absolute;
   border-radius: 50%;
-  background-color: #ffffff;
+  background-color: #ffffff66;
+  z-index: 5;
+
+  :hover {
+    background-color: #00000011;
+  }
 `;

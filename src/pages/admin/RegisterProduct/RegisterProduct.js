@@ -12,8 +12,9 @@ export default function RegisterProduct() {
   const [formData, setFormData] = useState({
     name: "",
     img: "",
-    price: 0,
-    amount: 0,
+    price: "",
+    amount: "",
+    category: "",
     description: "",
   });
 
@@ -21,7 +22,14 @@ export default function RegisterProduct() {
     try {
       await api.registerProductAdmin(formData, token);
 
-      navigate("/admin/register/product");
+      setFormData({
+        name: "",
+        img: "",
+        price: "",
+        amount: "",
+        category: "",
+        description: "",
+      });
     } catch (error) {
       console.log(error);
     }
@@ -43,6 +51,7 @@ export default function RegisterProduct() {
         <InputContainer>
           <Input
             type="text"
+            value={formData.name}
             placeholder="Nome"
             onChange={({ target }) =>
               setFormData({ ...formData, name: target.value })
@@ -51,6 +60,7 @@ export default function RegisterProduct() {
 
           <Input
             type="text"
+            value={formData.img}
             placeholder="Imagem"
             onChange={({ target }) =>
               setFormData({ ...formData, img: target.value })
@@ -58,6 +68,7 @@ export default function RegisterProduct() {
           />
           <Input
             type="text"
+            value={formData.price}
             placeholder="Preço"
             onChange={({ target }) =>
               setFormData({ ...formData, price: target.value })
@@ -65,6 +76,7 @@ export default function RegisterProduct() {
           />
           <Input
             type="text"
+            value={formData.amount}
             placeholder="Quantidade"
             onChange={({ target }) =>
               setFormData({ ...formData, amount: target.value })
@@ -72,6 +84,15 @@ export default function RegisterProduct() {
           />
           <Input
             type="text"
+            value={formData.category}
+            placeholder="Categoria"
+            onChange={({ target }) =>
+              setFormData({ ...formData, category: target.value })
+            }
+          />
+          <Input
+            type="text"
+            value={formData.description}
             placeholder="Descrição"
             onChange={({ target }) =>
               setFormData({ ...formData, description: target.value })

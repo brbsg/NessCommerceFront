@@ -58,6 +58,7 @@ const Container = styled.div`
   align-items: center;
 
   background-color: #023059;
+  z-index: 10;
 `;
 
 const BlockText = styled.div`

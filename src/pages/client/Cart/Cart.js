@@ -30,7 +30,7 @@ export default function Cart() {
     });
   }
 
-  useEffect(loadCartProducts, []);
+  useEffect(loadCartProducts, [token]);
 
   return (
     <Container>
@@ -62,7 +62,7 @@ export default function Cart() {
 
 const Container = styled.div`
   width: 80vw;
-  height: 100vh;
+  height: auto;
   padding-top: 15vh;
 
   display: flex;
@@ -71,7 +71,7 @@ const Container = styled.div`
 
   box-sizing: border-box;
 
-  background-color: #fafafa;
+  background-color: #f1f1f1;
 `;
 
 const Title = styled.div`
