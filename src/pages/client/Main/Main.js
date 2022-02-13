@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import api from "../../../services/api";
 import styled from "styled-components";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
+import { useAuth } from "../../../context/Auth";
 
 export default function Main() {
   const [allProducts, setAllProducts] = useState([]);
+  const { token } = useAuth();
 
   function loadProducts() {
     const promise = api.getAllProducts();
@@ -20,13 +22,25 @@ export default function Main() {
     });
   }
 
+  function handleProducttoCart(id){
+    const promise = api.postSendToCart(token, id);
+
+    promise.then(() => {
+      alert("Produto adicionado ao carrinho, finalize sua compra");
+    });
+    promise.catch((error) => {
+      console.log(error);
+      alert("Erro ao adicionar ao carrinho, faça Login!")
+    });
+  }
+
   useEffect(loadProducts, []);
 
   return (
     <Container>
       {allProducts.map((product) => (
         <ProductBlock to={`/products/${product._id}`} key={product._id}>
-          <CartButton onClick={() => alert("Produto adicionado ao carrinho, finalize sua compra")}>
+          <CartButton onClick={() => handleProducttoCart(product._id)}>
             <MdOutlineAddShoppingCart fontSize={30} />
           </CartButton>
           <img src={product.img} alt={product.name} />
@@ -44,6 +58,7 @@ export default function Main() {
 const Container = styled.div`
   width: 80vw;
   height: 100vh;
+  padding: 0 10px;
   padding-top: 15vh;
 
   display: flex;
