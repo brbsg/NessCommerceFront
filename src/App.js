@@ -12,6 +12,7 @@ import SignInAdmin from "./pages/admin/SignInAdmin/SignInAdmin";
 import Product from "./pages/client/Product/Product";
 import RegisterProduct from "./pages/admin/RegisterProduct/RegisterProduct";
 import RegisterAdmin from "./pages/admin/RegisterAdmin/RegisterAdmin";
+import Cart from "./pages/client/Cart/Cart";
 
 export default function App() {
   useEffect(() => {
@@ -35,6 +36,7 @@ export default function App() {
           <Route path="/admin/sign-in" element={<SignInAdmin />} />
           <Route path="/admin/register/product" element={<RegisterProduct />} />
           <Route path="/admin/register/admin" element={<RegisterAdmin />} />
+          <Route path="/cart" element={<Cart />}/>
         </Routes>
       </BrowserRouter>
     </AuthProvider>

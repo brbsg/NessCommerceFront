@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { useAuth } from "../../../context/Auth";
 import api from "../../../services/api";
 export default function Product() {
   const { productID } = useParams();
+  const { token } = useAuth();
   const [product, setProduct] = useState(null);
 
   function loadProduct() {
@@ -19,6 +21,18 @@ export default function Product() {
       });
   }
 
+  function handleProducttoCart(id){
+    const promise = api.postSendToCart(token, id);
+
+    promise.then(() => {
+      alert("Produto adicionado ao carrinho, finalize sua compra");
+    });
+    promise.catch((error) => {
+      console.log(error);
+      alert("Erro ao adicionar ao carrinho, faça Login!")
+    });
+  }
+
   useEffect(loadProduct, [productID]);
 
   if (product === null) return <Container></Container>;
@@ -26,7 +40,7 @@ export default function Product() {
   return (
     <Container>
       <BlockProduct>
-        <img alt="product" />
+        <img src={product.img} alt="product" />
       </BlockProduct>
       <BlockBuy>
         <BlockText>
@@ -34,11 +48,7 @@ export default function Product() {
           <h3>{product.description}</h3>
           <h2>R$ {product.price},00</h2>
         </BlockText>
-        <ButtonBuy
-          onClick={() =>
-            alert("Produto adicionado ao carrinho, finalize sua compra")
-          }
-        >
+        <ButtonBuy onClick={() => handleProducttoCart(product._id)}>
           Adicionar ao Carrinho
         </ButtonBuy>
       </BlockBuy>

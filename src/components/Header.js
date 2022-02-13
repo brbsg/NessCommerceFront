@@ -34,7 +34,7 @@ export default function Header() {
         </BlockText>
 
         <CartViewButton>
-          <Link to="/client/cart">
+          <Link to="/cart">
             <MdShoppingCart fontSize={30} color={"white"} />
           </Link>
 
