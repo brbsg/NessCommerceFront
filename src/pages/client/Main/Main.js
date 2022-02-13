@@ -22,7 +22,7 @@ export default function Main() {
     });
   }
 
-  function handleProducttoCart(id){
+  function handleProducttoCart(id) {
     const promise = api.postSendToCart(token, id);
 
     promise.then(() => {
@@ -30,7 +30,7 @@ export default function Main() {
     });
     promise.catch((error) => {
       console.log(error);
-      alert("Erro ao adicionar ao carrinho, faça Login!")
+      alert("Erro ao adicionar ao carrinho, faça Login!");
     });
   }
 
@@ -40,7 +40,7 @@ export default function Main() {
     <Container>
       {allProducts.map((product) => (
         <ProductBlock to={`/products/${product._id}`} key={product._id}>
-          <CartButton onClick={() => handleProducttoCart(product._id)}>
+          <CartButton onClick={handleProducttoCart(product._id)}>
             <MdOutlineAddShoppingCart fontSize={30} />
           </CartButton>
           <img src={product.img} alt={product.name} />
@@ -90,7 +90,6 @@ const ProductBlock = styled(Link)`
 
 const ProductText = styled.div`
   padding: 20px 16px;
-  
 
   h1 {
     margin: 3px 0;
@@ -116,7 +115,7 @@ const CartButton = styled.div`
   top: 10px;
 
   width: 40px;
-  height:40px;
+  height: 40px;
 
   display: flex;
   justify-content: center;
@@ -124,5 +123,5 @@ const CartButton = styled.div`
 
   position: absolute;
   border-radius: 50%;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 `;

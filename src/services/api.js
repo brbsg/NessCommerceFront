@@ -1,7 +1,8 @@
 import axios from "axios";
 
-
-const BASE_URL = "https://ness-commerce.herokuapp.com";
+// const BASE_URL = process.env.REACT_APP_BASE_URL;
+// const BASE_URL = "https://ness-commerce.herokuapp.com";
+const BASE_URL = "http://localhost:5000";
 
 function createConfig(token) {
   return {
@@ -59,14 +60,14 @@ async function getCartProducts(token) {
 
 async function postSendToCart(token, id) {
   const config = createConfig(token);
-  const promise = axios.get(`${BASE_URL}/cart/${id}`, config);
+  const promise = axios.post(`${BASE_URL}/cart/${id}`, {}, config);
 
   return promise;
 }
 
 async function postConfirmBuy(token) {
   const config = createConfig(token);
-  const promise = axios.get(`${BASE_URL}/confirm-buy`, config);
+  const promise = axios.post(`${BASE_URL}/confirm-buy`, config);
 
   return promise;
 }
@@ -82,7 +83,7 @@ const api = {
   getProduct,
   getCartProducts,
   postSendToCart,
-  postConfirmBuy
+  postConfirmBuy,
 };
 
 export default api;

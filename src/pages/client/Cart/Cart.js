@@ -11,7 +11,7 @@ export default function Cart() {
   function loadCartProducts() {
     const promise = api.getCartProducts(token);
 
-    promise.then(({data}) => {
+    promise.then(({ data }) => {
       setCartProducts(data);
     });
     promise.catch((error) => {
@@ -19,48 +19,46 @@ export default function Cart() {
     });
   }
 
-  function handleBuy(){
+  function handleBuy() {
     const promise = api.postConfirmBuy(token);
 
     promise.then(() => {
-        alert("Sua compra foi feita com Sucesso!!!");
+      alert("Sua compra foi feita com Sucesso!!!");
     });
     promise.catch((error) => {
       console.log(error);
     });
   }
 
-  useEffect(loadCartProducts, [])
-
-  
+  useEffect(loadCartProducts, []);
 
   return (
-      <Container>
-        <Title>Meus Produtos:</Title>
-        {CartProducts.length !==0 ?
+    <Container>
+      <Title>Meus Produtos:</Title>
+      {CartProducts.length !== 0 ? (
         <>
-        <ContainerProdutos>
+          <ContainerProdutos>
             {CartProducts.map((product) => (
-                <ProductBlock to={`/products/${product._id}`} key={product._id}>
-            <img src={product.img} alt={product.name} />
-            <ProductText>
-                <h3>{product.name}</h3>
-                <h2>{product.description}</h2>
-                <h1>R$ {Number(product.price)},00</h1>
-            </ProductText>
-            </ProductBlock>
+              <ProductBlock to={`/products/${product._id}`} key={product._id}>
+                <img src={product.img} alt={product.name} />
+                <ProductText>
+                  <h3>{product.name}</h3>
+                  <h2>{product.description}</h2>
+                  <h1>R$ {Number(product.price)},00</h1>
+                </ProductText>
+              </ProductBlock>
             ))}
-        </ContainerProdutos>
-        <ButtonConfirm onClick={()=> handleBuy()}>
+          </ContainerProdutos>
+          <ButtonConfirm onClick={() => handleBuy()}>
             Confirmar Compra
-        </ButtonConfirm>
+          </ButtonConfirm>
         </>
-        :
+      ) : (
         <WarnTitle>Faça Login ou Adicione alguns Produtos :) </WarnTitle>
-        }
-      </Container>
+      )}
+    </Container>
   );
-};
+}
 
 const Container = styled.div`
   width: 80vw;
@@ -120,7 +118,7 @@ const ProductBlock = styled(Link)`
 
 const ProductText = styled.div`
   padding: 20px 16px;
-  
+
   h1 {
     margin: 3px 0;
     color: #00a650;
