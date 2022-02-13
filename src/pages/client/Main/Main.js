@@ -40,11 +40,11 @@ export default function Main() {
     <Container>
       {allProducts.map((product) => (
         <ProductBlock to={`/products/${product._id}`} key={product._id}>
-          <CartButton onClick={handleProducttoCart(product._id)}>
+          <CartButton onClick={() => handleProducttoCart(product._id)}>
             <MdOutlineAddShoppingCart fontSize={30} />
           </CartButton>
           <img src={product.img} alt={product.name} />
-          <ProductText>
+          <ProductText to={`/products/${product._id}`}>
             <h3>{product.name}</h3>
             <h2>{product.description}</h2>
             <h1>R$ {Number(product.price)},00</h1>
@@ -70,8 +70,7 @@ const Container = styled.div`
   background-color: #fafafa;
 `;
 
-const ProductBlock = styled(Link)`
-  all: unset;
+const ProductBlock = styled.div`
   width: 224px;
   height: 330px;
 
@@ -85,10 +84,13 @@ const ProductBlock = styled(Link)`
     width: 220px;
     height: 220px;
     padding: 2px;
+
+    border-radius: 5px;
   }
 `;
 
-const ProductText = styled.div`
+const ProductText = styled(Link)`
+  all: unset;
   padding: 20px 16px;
 
   h1 {
