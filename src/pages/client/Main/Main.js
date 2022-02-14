@@ -93,12 +93,14 @@ const Container = styled.div`
     width: 70vw;
   }
 
-  @media (max-width: 800px) {
-    width: 55vw;
+  @media (max-width: 900px) {
+    width: 100vw;
   }
 
-  @media (max-width: 500px) {
-    width: 100vw;
+  @media only screen and (hover: none) and (pointer: coarse) {
+    .cart-icon {
+      display: flex;
+    }
   }
 `;
 

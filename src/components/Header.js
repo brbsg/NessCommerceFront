@@ -1,13 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { MdShoppingCart, MdOutlineExitToApp } from "react-icons/md";
+import { MdShoppingCart, MdOutlineExitToApp, MdMenu } from "react-icons/md";
 import { useAuth } from "../context/Auth";
 
 export default function Header() {
   const location = useLocation();
+  const [state, setState] = useState(false);
 
   const { clientName, setPersistedData } = useAuth();
+
+  function onMenuClick() {
+    const element = document.querySelector(".category");
+
+    if (state) {
+      element.style.display = "none";
+
+      setState(false);
+    } else {
+      element.style.display = "block";
+      setState(true);
+    }
+  }
 
   if (location.pathname.includes("admin")) return <></>;
   if (location.pathname.includes("client")) return <></>;
@@ -33,6 +47,14 @@ export default function Header() {
             </>
           )}
         </BlockText>
+
+        <MdMenu
+          className="menu-icon"
+          style={{ display: "none", cursor: "pointer" }}
+          fontSize={30}
+          color="white"
+          onClick={onMenuClick}
+        />
 
         <TitleCommerce to="/">Ness Commerce</TitleCommerce>
 
@@ -67,6 +89,12 @@ const Container = styled.div`
   z-index: 10;
   @media (max-width: 900px) {
     justify-content: space-between;
+    padding-left: 0;
+
+    .menu-icon {
+      display: block !important;
+      padding: 0 5px;
+    }
   }
 `;
 
@@ -95,7 +123,7 @@ const TitleCommerce = styled(Link)`
   box-sizing: border-box;
 
   @media (max-width: 500px) {
-    font-size: 32px;
+    font-size: 28px;
   }
 `;
 

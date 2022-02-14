@@ -29,7 +29,7 @@ export default function Categories({
   }, [auxAllProducts]);
 
   return (
-    <Container>
+    <Container className="category">
       <span>Categorias</span>
 
       {categories.map((category, i) => (
@@ -51,6 +51,7 @@ export const Container = styled.div`
   width: 20%;
   height: 100%;
   background-color: white;
+  z-index: 10;
 
   span {
     display: flex;
@@ -71,18 +72,18 @@ export const Container = styled.div`
   }
 
   @media (max-width: 1100px) {
-    width: 30vw;
+    .category {
+      display: flex;
+      width: 30vw;
+    }
   }
 
-  @media (max-width: 800px) {
+  @media (max-width: 900px) {
     width: 45%;
+    display: none;
 
     span {
       font-size: 25px;
     }
-  }
-
-  @media (max-width: 500px) {
-    display: none;
   }
 `;
