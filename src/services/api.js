@@ -1,8 +1,8 @@
 import axios from "axios";
 
-// const BASE_URL = process.env.REACT_APP_BASE_URL;
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 // const BASE_URL = "https://ness-commerce.herokuapp.com";
-const BASE_URL = "http://localhost:5000";
+// const BASE_URL = "http://localhost:5000";
 
 function createConfig(token) {
   return {
@@ -93,7 +93,7 @@ const api = {
   getCartProducts,
   postSendToCart,
   postRemovefromCart,
-  postConfirmBuy
+  postConfirmBuy,
 };
 
 export default api;
