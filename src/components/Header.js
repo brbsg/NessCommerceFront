@@ -1,13 +1,13 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { MdShoppingCart } from "react-icons/md";
+import { MdShoppingCart, MdOutlineExitToApp } from "react-icons/md";
 import { useAuth } from "../context/Auth";
 
 export default function Header() {
   const location = useLocation();
 
-  const { clientName } = useAuth();
+  const { clientName, setPersistedData } = useAuth();
 
   if (location.pathname.includes("admin")) return <></>;
   if (location.pathname.includes("client")) return <></>;
@@ -16,14 +16,15 @@ export default function Header() {
     <>
       <Container>
         <BlockText>
-          <TitleCommerce to="/">Ness Commerce</TitleCommerce>
-        </BlockText>
-
-        <SeachInput />
-
-        <BlockText>
           {clientName !== null ? (
-            <RegisterUser to="">Olá {clientName}</RegisterUser>
+            <>
+              <RegisterUser to="">Olá {clientName}</RegisterUser>
+              <MdOutlineExitToApp
+                onClick={() => setPersistedData(null, null)}
+                color="white"
+                fontSize={21}
+              />
+            </>
           ) : (
             // <RegisterUser>Olá djnvj</RegisterUser>
             <>
@@ -32,6 +33,10 @@ export default function Header() {
             </>
           )}
         </BlockText>
+
+        <TitleCommerce to="/">Ness Commerce</TitleCommerce>
+
+        {/* <SeachInput /> */}
 
         <CartViewButton>
           <Link to="/cart">
@@ -52,6 +57,7 @@ const Container = styled.div`
   height: 10vh;
   position: fixed;
   box-sizing: border-box;
+  padding: 0 9%;
 
   display: flex;
   justify-content: space-between;
@@ -59,6 +65,9 @@ const Container = styled.div`
 
   background-color: #023059;
   z-index: 10;
+  @media (max-width: 900px) {
+    justify-content: space-between;
+  }
 `;
 
 const BlockText = styled.div`
@@ -67,6 +76,11 @@ const BlockText = styled.div`
   justify-content: center;
   align-items: right;
   gap: 8px;
+  margin: 0;
+
+  @media (max-width: 900px) {
+    display: none;
+  }
 `;
 
 const TitleCommerce = styled(Link)`
@@ -80,29 +94,29 @@ const TitleCommerce = styled(Link)`
 
   box-sizing: border-box;
 
-  @media (max-width: 700px) {
-    font-size: 20px;
+  @media (max-width: 500px) {
+    font-size: 32px;
   }
 `;
 
-const SeachInput = styled.input`
-  all: unset;
-  width: 30%;
-  height: 50%;
-  padding: 15px 16px;
+// const SeachInput = styled.input`
+//   all: unset;
+//   width: 30%;
+//   height: 50%;
+//   padding: 15px 16px;
 
-  font-family: sans-serif;
+//   font-family: sans-serif;
 
-  color: #000;
-  background-color: #ffffff;
-  border-radius: 5px;
-  box-sizing: border-box;
+//   color: #000;
+//   background-color: #ffffff;
+//   border-radius: 5px;
+//   box-sizing: border-box;
 
-  ::placeholder {
-    color: #000;
-    font-family: sans-serif;
-  }
-`;
+//   ::placeholder {
+//     color: #000;
+//     font-family: sans-serif;
+//   }
+// `;
 
 const CartViewButton = styled.div`
   height: 100%;
@@ -111,6 +125,7 @@ const CartViewButton = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 0;
 
   position: relative;
 `;

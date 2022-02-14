@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/Auth";
@@ -7,7 +7,7 @@ import api from "../../../services/api";
 export default function SignInAdmin() {
   const navigate = useNavigate();
 
-  const { token, setPersistedData } = useAuth();
+  const { setPersistedData } = useAuth();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -25,16 +25,10 @@ export default function SignInAdmin() {
     }
   }
 
-  useEffect(() => {
-    if (token) {
-      navigate("/admin/register/product");
-    }
-  });
-
   return (
     <Container>
       <Header>
-        <span>ness commerce</span>
+        <span onClick={() => navigate("/")}>ness commerce</span>
       </Header>
 
       <FormContainer>
@@ -80,10 +74,11 @@ const Header = styled.div`
   height: 35vh;
   width: 100vw;
   background-color: #023059;
-  z-index: -1;
+  z-index: 1;
   padding: 20px;
 
   span {
+    display: block;
     font-style: normal;
     font-size: 40px;
     font-family: "Bungee Inline";
@@ -109,6 +104,7 @@ const FormContainer = styled.div`
 
   font-size: 30px;
   font-weight: bold;
+  z-index: 2;
 
   @media (max-width: 600px) {
     width: 100vw;
