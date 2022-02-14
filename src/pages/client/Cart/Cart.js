@@ -8,15 +8,15 @@ export default function Cart() {
   const [CartProducts, setCartProducts] = useState([]);
   const { token } = useAuth();
 
-  function loadCartProducts() {
-    const promise = api.getCartProducts(token);
+  async function loadCartProducts() {
+    try {
+      console.log(token);
 
-    promise.then(({ data }) => {
+      const { data } = await api.getCartProducts(token);
       setCartProducts(data);
-    });
-    promise.catch((error) => {
+    } catch (error) {
       console.log(error);
-    });
+    }
   }
 
   function handleBuy() {

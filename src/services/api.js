@@ -53,6 +53,7 @@ async function getProduct(body) {
 
 async function getCartProducts(token) {
   const config = createConfig(token);
+
   const promise = axios.get(`${BASE_URL}/cart`, config);
 
   return promise;
@@ -68,8 +69,7 @@ async function postSendToCart(token, id) {
 async function postConfirmBuy(token) {
   const config = createConfig(token);
 
-  const promise = axios.post(`${BASE_URL}/confirm-buy`, {},config);
-
+  const promise = axios.post(`${BASE_URL}/confirm-buy`, {}, config);
 
   return promise;
 }
