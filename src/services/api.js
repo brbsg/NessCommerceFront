@@ -65,6 +65,13 @@ async function postSendToCart(token, id) {
   return promise;
 }
 
+async function postRemovefromCart(token, id) {
+  const config = createConfig(token);
+  const promise = axios.post(`${BASE_URL}/remove-from-cart/${id}`, {}, config);
+
+  return promise;
+}
+
 async function postConfirmBuy(token) {
   const config = createConfig(token);
 
@@ -85,7 +92,8 @@ const api = {
   getProduct,
   getCartProducts,
   postSendToCart,
-  postConfirmBuy,
+  postRemovefromCart,
+  postConfirmBuy
 };
 
 export default api;
