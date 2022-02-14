@@ -1,66 +1,66 @@
-import React, {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../../../services/api";
 import styled from "styled-components";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-export default function SignUpClient(){
-    const navigate = useNavigate();
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        password: ""
+export default function SignUpClient() {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  function handleChange(e) {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const promise = api.registerClient({ ...formData });
+    promise.then(() => {
+      navigate("/sign-in-client");
     });
+  }
 
-    function handleChange(e) {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    }
-
-    function handleSubmit(event){
-        event.preventDefault();
-
-        const promise = api.registerClient({...formData});
-        promise.then(()=>{
-            navigate("/sign-in-client");
-        })
-    }
-
-    return (
+  return (
     <Container>
-        <Header></Header>
-        <FormContainer>
-            <h1>NessCommerce</h1>
-            <Form onSubmit={handleSubmit}>
-                <Input
-                    placeholder="Nome"
-                    type="text"
-                    onChange={handleChange}
-                    name="name"
-                    value={formData.name}
-                    required
-                    />
-                <Input
-                    placeholder="E-mail"
-                    type="email"
-                    onChange={handleChange}
-                    name="email"
-                    value={formData.email}
-                    required
-                    />
-                <Input
-                    placeholder="Senha"
-                    type="password"
-                    onChange={handleChange}
-                    name="password"
-                    value={formData.password}
-                    required
-                    />
-                <Button type="submit">Cadastrar</Button>
-            </Form>
-            <StyledLink to="/sign-in-client">Faça login</StyledLink>
-        </FormContainer>
+      <Header></Header>
+      <FormContainer>
+        <h1>NessCommerce</h1>
+        <Form onSubmit={handleSubmit}>
+          <Input
+            placeholder="Nome"
+            type="text"
+            onChange={handleChange}
+            name="name"
+            value={formData.name}
+            required
+          />
+          <Input
+            placeholder="E-mail"
+            type="email"
+            onChange={handleChange}
+            name="email"
+            value={formData.email}
+            required
+          />
+          <Input
+            placeholder="Senha"
+            type="password"
+            onChange={handleChange}
+            name="password"
+            value={formData.password}
+            required
+          />
+          <Button type="submit">Cadastrar</Button>
+        </Form>
+        <StyledLink to="/sign-in-client">Faça login</StyledLink>
+      </FormContainer>
     </Container>
-    );
+  );
 }
 
 const Container = styled.div`
@@ -98,6 +98,8 @@ const FormContainer = styled.div`
   font-weight: bold;
 
   @media (max-width: 600px) {
+    padding: 0px;
+
     width: 100vw;
     border-radius: 0;
     box-shadow: inherit;

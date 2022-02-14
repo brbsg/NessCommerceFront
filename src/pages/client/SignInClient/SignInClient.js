@@ -97,6 +97,7 @@ const FormContainer = styled.div`
   font-weight: bold;
 
   @media (max-width: 600px) {
+    padding: 0px;
     width: 100vw;
     border-radius: 0;
     box-shadow: inherit;

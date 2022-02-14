@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useAuth } from "../../../../context/Auth";
+import { MdShoppingCart, MdOutlineExitToApp, MdMenu } from "react-icons/md";
 
 export default function Categories({
   auxAllProducts,
@@ -7,6 +10,8 @@ export default function Categories({
   setAllProducts,
 }) {
   const [categories, setCategories] = useState([]);
+
+  const { clientName, setPersistedData } = useAuth();
 
   function filterCategory(category) {
     let auxArr = auxAllProducts;
@@ -37,6 +42,24 @@ export default function Categories({
           {category}
         </h1>
       ))}
+
+      <BlockText>
+        {clientName !== null ? (
+          <>
+            <MdOutlineExitToApp
+              onClick={() => setPersistedData(null, null)}
+              color=" #023059"
+              fontSize={21}
+            />
+          </>
+        ) : (
+          // <RegisterUser>Olá djnvj</RegisterUser>
+          <>
+            <RegisterUser to="/sign-in-client">Entrar</RegisterUser>
+            <RegisterUser to="/sign-up-client">Cadastrar</RegisterUser>
+          </>
+        )}
+      </BlockText>
     </Container>
   );
 }
@@ -86,4 +109,32 @@ export const Container = styled.div`
       font-size: 25px;
     }
   }
+`;
+
+const BlockText = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: right;
+  gap: 8px;
+  margin: 0;
+
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+
+  font-size: 30px;
+  font-weight: bold;
+`;
+
+const RegisterUser = styled(Link)`
+  all: unset;
+  cursor: pointer;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+
+  box-sizing: border-box;
+
+  color: #023059;
 `;
